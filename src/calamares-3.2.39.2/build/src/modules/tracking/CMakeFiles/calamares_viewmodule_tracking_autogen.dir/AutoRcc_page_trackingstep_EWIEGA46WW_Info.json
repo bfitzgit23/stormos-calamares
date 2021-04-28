@@ -1,0 +1,26 @@
+{
+	"BUILD_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build/src/modules/tracking/calamares_viewmodule_tracking_autogen",
+	"CMAKE_BINARY_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build/src/modules/tracking",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/tracking",
+	"CMAKE_SOURCE_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2",
+	"INCLUDE_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build/src/modules/tracking/calamares_viewmodule_tracking_autogen/include",
+	"INPUTS" : 
+	[
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/tracking/level-user.svg",
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/tracking/level-none.svg",
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/tracking/level-install.svg",
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/tracking/level-machine.svg",
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/data/images/information.svgz"
+	],
+	"LOCK_FILE" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build/src/modules/tracking/CMakeFiles/calamares_viewmodule_tracking_autogen.dir/AutoRcc_page_trackingstep_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "page_trackingstep" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_page_trackingstep.cpp",
+	"RCC_EXECUTABLE" : "/usr/bin/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build/src/modules/tracking/CMakeFiles/calamares_viewmodule_tracking_autogen.dir/AutoRcc_page_trackingstep_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/tracking/page_trackingstep.qrc",
+	"VERBOSITY" : 0
+}

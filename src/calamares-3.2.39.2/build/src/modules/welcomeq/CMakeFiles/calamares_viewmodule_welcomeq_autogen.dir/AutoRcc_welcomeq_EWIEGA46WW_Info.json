@@ -1,0 +1,29 @@
+{
+	"BUILD_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build/src/modules/welcomeq/calamares_viewmodule_welcomeq_autogen",
+	"CMAKE_BINARY_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build/src/modules/welcomeq",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/welcomeq",
+	"CMAKE_SOURCE_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2",
+	"INCLUDE_DIR" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build/src/modules/welcomeq/calamares_viewmodule_welcomeq_autogen/include",
+	"INPUTS" : 
+	[
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/welcomeq/release_notes.qml",
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/welcomeq/Recommended.qml",
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/welcomeq/welcomeq.qml",
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/welcomeq/about.qml",
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/welcomeq/Requirements.qml",
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/welcomeq/img/chevron-left-solid.svg",
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/welcomeq/img/squid.png",
+		"/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/welcomeq/img/language-icon-48px.png"
+	],
+	"LOCK_FILE" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build/src/modules/welcomeq/CMakeFiles/calamares_viewmodule_welcomeq_autogen.dir/AutoRcc_welcomeq_EWIEGA46WW_Lock.lock",
+	"MULTI_CONFIG" : false,
+	"OPTIONS" : [ "-name", "welcomeq" ],
+	"OUTPUT_CHECKSUM" : "EWIEGA46WW",
+	"OUTPUT_NAME" : "qrc_welcomeq.cpp",
+	"RCC_EXECUTABLE" : "/usr/bin/rcc",
+	"RCC_LIST_OPTIONS" : [ "--list" ],
+	"SETTINGS_FILE" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/build/src/modules/welcomeq/CMakeFiles/calamares_viewmodule_welcomeq_autogen.dir/AutoRcc_welcomeq_EWIEGA46WW_Used.txt",
+	"SOURCE" : "/home/ben/stormos-calamares/src/calamares-3.2.39.2/src/modules/welcomeq/welcomeq.qrc",
+	"VERBOSITY" : 0
+}
