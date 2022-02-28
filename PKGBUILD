@@ -3,7 +3,7 @@
 
 pkgname=stormos-calamares
 _pkgname=calamares
-pkgver=3.2.44.3
+pkgver=3.2.52
 _pkgver=$pkgver
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
@@ -26,7 +26,7 @@ source=("$_pkgname-$pkgver::$url/download/v$pkgver/$_pkgname-$pkgver.tar.gz"
 	"calamares_polkit"
 	"49-nopasswd-calamares.rules")
 
-sha256sums=('a7772d50baf35cfb7d74db3c0a46fb72a74e069a78a8e984c2ed1d115abc944c'
+sha256sums=('917f050c5541abba050dd7ae8c665ea2382690610732a70e116b45a1e77387a2'
             '1bbcfc7b857161f57be8574c8f95cef651507209aee7a6a67fece43ac4d7213f'
             '4c8b48518b0047672e835e0a6c8a66342b316ab8835cf4c331030de4830dcea2'
             '56d85ff6bf860b9559b8c9f997ad9b1002f3fccc782073760eca505e3bddd176')
