@@ -1,7 +1,7 @@
 
 # Maintainer: Philip Müller <philm[at]manjaro[dot]org>
 
-pkgname=stormos-calamares
+pkgname=calamares
 pkgver=3.3.0.233005
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
