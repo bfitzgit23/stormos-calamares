@@ -23,13 +23,6 @@ source=("$pkgname::git+https://github.com/calamares/calamares")
 
 sha256sums=('SKIP')
 
-pkgver() {
-	cd ${srcdir}/calamares
-	_ver="$(cat CMakeLists.txt | grep -m3 -e "  VERSION" | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
-	#_git=".r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
-	printf '%s%s' "${_ver}" #"${_git}"
-}
-
 prepare() {
 	cd ${srcdir}/calamares
 	sed -i -e 's/"Install configuration files" OFF/"Install configuration files" ON/' CMakeLists.txt
