@@ -2,14 +2,12 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dot]org>
 
 pkgname=stormos-calamares
-_pkgname=calamares
-pkgver=3.2.61
-_pkgver=$pkgver
-pkgrel=2
+pkgver=3.3.0.233005
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
-url="https://github.com/calamares/calamares/releases"
+url="https://github.com/calamares/calamares/"
 license=('LGPL')
 depends=('kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore>=4.2.0' 'mkinitcpio-openswap'
          'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'plasma-framework'
@@ -21,31 +19,27 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source=("$_pkgname-$pkgver::$url/download/v$pkgver/$_pkgname-$pkgver.tar.gz"
+source=("$pkgname::git+https://github.com/calamares/calamares"
 	"calamares.desktop"
 	"calamares_polkit"
 	"49-nopasswd-calamares.rules")
 
-sha256sums=('7591b9b60738bdba7b9de2b8da5462ab21006db06a006f0dd21ac5b832711dd2'
-            '1bbcfc7b857161f57be8574c8f95cef651507209aee7a6a67fece43ac4d7213f'
-            '4c8b48518b0047672e835e0a6c8a66342b316ab8835cf4c331030de4830dcea2'
-            '56d85ff6bf860b9559b8c9f997ad9b1002f3fccc782073760eca505e3bddd176')
+sha256sums=('SKIP')
 
 pkgver() {
-	cd ${srcdir}/$_pkgname-$pkgver
+	cd ${srcdir}/calamares
 	_ver="$(cat CMakeLists.txt | grep -m3 -e "  VERSION" | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
 	#_git=".r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
 	printf '%s%s' "${_ver}" #"${_git}"
 }
 
 prepare() {
-	cd ${srcdir}/calamares-${pkgver}
+	cd ${srcdir}/calamares
 	sed -i -e 's/"Install configuration files" OFF/"Install configuration files" ON/' CMakeLists.txt
 
 	# change version
 	sed -i -e "s|$pkgver|$_pkgver|g" CMakeLists.txt
-	_ver="$pkgver"
-	printf 'Version: %s-%s' "${_ver}" "${pkgrel}"
+#	printf 'Version: %s-%s' "${_ver}" "${pkgrel}"
 	sed -i -e "s|\${CALAMARES_VERSION_MAJOR}.\${CALAMARES_VERSION_MINOR}.\${CALAMARES_VERSION_PATCH}|${_ver}-${pkgrel}|g" CMakeLists.txt
 	sed -i -e "s|CALAMARES_VERSION_RC 1|CALAMARES_VERSION_RC 0|g" CMakeLists.txt
 
@@ -54,7 +48,7 @@ prepare() {
 }
 
 build() {
-	cd $_pkgname-$pkgver
+	cd ${srcdir}/calamares
 
 	mkdir -p build
 	cd build
@@ -75,10 +69,10 @@ build() {
 }
 
 package() {
-	cd ${_pkgname}-${pkgver}/build
+	cd ${srcdir/calamares/build
 	make DESTDIR="$pkgdir" install
-	install -Dm644 "${srcdir}/calamares.desktop" "$pkgdir/etc/xdg/autostart/calamares.desktop"
-	install -Dm755 "${srcdir}/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
-	install -Dm644 "${srcdir}/49-nopasswd-calamares.rules" "$pkgdir/etc/polkit-1/rules.d/49-nopasswd-calamares.rules"
-	chmod 750 "$pkgdir"/etc/polkit-1/rules.d
+#	install -Dm644 "${srcdir}/calamares.desktop" #"$pkgdir/etc/xdg/autostart/calamares.desktop"
+#	install -Dm755 "${srcdir}/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
+#	install -Dm644 "${srcdir}/49-nopasswd-calamares.rules" #"$pkgdir/etc/polkit-1/rules.d/49-nopasswd-calamares.rules"
+#	chmod 750 "$pkgdir"/etc/polkit-1/rules.d
 }
