@@ -69,7 +69,7 @@ build() {
 }
 
 package() {
-	cd ${srcdir/calamares/build
+	cd ${srcdir}/calamares/build
 	make DESTDIR="$pkgdir" install
 #	install -Dm644 "${srcdir}/calamares.desktop" #"$pkgdir/etc/xdg/autostart/calamares.desktop"
 #	install -Dm755 "${srcdir}/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
