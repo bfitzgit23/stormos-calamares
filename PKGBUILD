@@ -1,9 +1,9 @@
 # Maintainer: bennjammin (StormOSDev)
 
-pkgname=calamares
+pkgname=calamares-app
 _pkgname=calamares
 pkgver=3.3.0alpha3
-pkgrel=8
+pkgrel=9
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
@@ -18,7 +18,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source=($pkgname::git+https://github.com/calamares/calamares#commit=9d324bc
+source=($pkgname::git+https://github.com/calamares/calamares#commit=60df29d
         "calamares_polkit"
         "49-nopasswd-calamares.rules")
 
@@ -71,5 +71,5 @@ package() {
 
 }
 sha256sums=('SKIP'
-            '4c8b48518b0047672e835e0a6c8a66342b316ab8835cf4c331030de4830dcea2'
+            'e61245ff7e4c3af6f05a9fe9a3fcf47f2780d9aa88c11eab02a35fac446cf1e1'
             '56d85ff6bf860b9559b8c9f997ad9b1002f3fccc782073760eca505e3bddd176')
