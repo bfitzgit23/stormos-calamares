@@ -38,7 +38,7 @@ prepare() {
 	sed -i -e "s|CALAMARES_VERSION_RC 1|CALAMARES_VERSION_RC 0|g" CMakeLists.txt
 
 	# change branding
-	sed -i -e "s/default/Storm/g" src/branding/CMakeLists.txt
+	sed -i -e "s/default/Storm/g" ${srcdir}/$pkgname/src/branding/CMakeLists.txt
 }
 
 build() {
