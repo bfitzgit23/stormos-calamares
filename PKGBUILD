@@ -18,7 +18,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source=($pkgname::git+https://github.com/calamares/calamares#commit=60df29d
+source=($pkgname::git+https://github.com/calamares/calamares#commit=db40513
         "calamares_polkit"
         "49-nopasswd-calamares.rules")
 
