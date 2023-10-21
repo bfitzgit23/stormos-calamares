@@ -7,18 +7,18 @@ pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
-url="https://github.com/calamares/calamares"
+url="$_pkgname::git+https://github.com/calamares/calamares#commit=60df29d"
 license=('LGPL')
-depends=('kdbusaddons' 'kconfig' 'kcoreaddons' 'kiconthemes' 'ki18n' 'kio' 'solid' 'yaml-cpp' 'kpmcore' 'mkinitcpio-openswap'
-         'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'plasma-framework'
+depends=('kdbusaddons5' 'kconfig5' 'kcoreaddons5' 'kiconthemes5' 'ki18n5' 'kio5' 'solid5' 'yaml-cpp' 'kpmcore' 'mkinitcpio-openswap'
+         'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'plasma-framework5'
          'qt5-xmlpatterns' 'squashfs-tools' 'libpwquality' 'efibootmgr' 'icu' 'appstream-qt')
-makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost' 'kparts' 'kdbusaddons')
+makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost' 'kparts5' 'kdbusaddons5')
 backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/displaymanager.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source=($pkgname::git+https://github.com/calamares/calamares#commit=db40513
+source=($pkgname::git+https://github.com/calamares/calamares
         "calamares_polkit"
         "49-nopasswd-calamares.rules")
 
@@ -71,5 +71,5 @@ package() {
 
 }
 sha256sums=('SKIP'
-            'e61245ff7e4c3af6f05a9fe9a3fcf47f2780d9aa88c11eab02a35fac446cf1e1'
+            '4c8b48518b0047672e835e0a6c8a66342b316ab8835cf4c331030de4830dcea2'
             '56d85ff6bf860b9559b8c9f997ad9b1002f3fccc782073760eca505e3bddd176')
