@@ -2,7 +2,7 @@
 
 pkgname=calamares-app
 _pkgname=calamares
-pkgver=3.3.0alpha5
+pkgver=3.3.0alpha6
 pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -14,7 +14,7 @@ depends=('kdbusaddons5' 'kconfig5' 'kcoreaddons5' 'kiconthemes5' 'ki18n5' 'kio5'
          'qt5-xmlpatterns' 'squashfs-tools' 'libpwquality' 'efibootmgr' 'icu' 'appstream-qt')
 makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'kparts5' 'kdbusaddons5')
 
-source=($pkgname::git+https://github.com/calamares/calamares#commit=350be92
+source=($pkgname::git+https://github.com/calamares/calamares#commit=5f06b32
         "calamares_polkit"
         "49-nopasswd-calamares.rules")
 
