@@ -1,24 +1,20 @@
-# Maintainer: bennjammin (StormOSDev)
+# Maintainer: StormOS
 
 pkgname=calamares-app
 _pkgname=calamares
-pkgver=3.3.0alpha3
-pkgrel=1
+pkgver=3.3.0alpha5
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares/calamares"
 license=('LGPL')
 depends=('kdbusaddons5' 'kconfig5' 'kcoreaddons5' 'kiconthemes5' 'ki18n5' 'kio5' 'solid5' 'yaml-cpp' 'kpmcore' 'mkinitcpio-openswap'
-         'boost-libs' 'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'plasma-framework5'
+         'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'plasma-framework5'
          'qt5-xmlpatterns' 'squashfs-tools' 'libpwquality' 'efibootmgr' 'icu' 'appstream-qt')
-makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'boost' 'kparts5' 'kdbusaddons5')
-backup=('usr/share/calamares/modules/bootloader.conf'
-        'usr/share/calamares/modules/displaymanager.conf'
-        'usr/share/calamares/modules/initcpio.conf'
-        'usr/share/calamares/modules/unpackfs.conf')
+makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'kparts5' 'kdbusaddons5')
 
-source=($pkgname::git+https://github.com/calamares/calamares#commit=60df29d
+source=($pkgname::git+https://github.com/calamares/calamares#commit=350be92
         "calamares_polkit"
         "49-nopasswd-calamares.rules")
 
@@ -36,8 +32,8 @@ prepare() {
 	_ver="$(cat CMakeLists.txt | grep -m3 -e "  VERSION" | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
 	sed -i -e "s|\${CALAMARES_VERSION_MAJOR}.\${CALAMARES_VERSION_MINOR}.\${CALAMARES_VERSION_PATCH}|${_ver}-${pkgrel}|g" CMakeLists.txt
 	sed -i -e "s|CALAMARES_VERSION_RC 1|CALAMARES_VERSION_RC 0|g" CMakeLists.txt
-
-	# change branding
+	
+		# change branding
 	sed -i -e "s/default/Storm/g" ${srcdir}/$pkgname/src/branding/CMakeLists.txt
 }
 
@@ -51,6 +47,7 @@ build() {
               -DCMAKE_INSTALL_PREFIX=/usr \
               -DCMAKE_INSTALL_LIBDIR=lib \
               -DWITH_PYTHONQT=OFF \
+              -DWITH_PYBIND11=OFF \
               -DWITH_KF5DBus=OFF \
               -DBoost_NO_BOOST_CMAKE=ON \
               -DWEBVIEW_FORCE_WEBKIT=OFF \
@@ -71,5 +68,5 @@ package() {
 
 }
 sha256sums=('SKIP'
-            '4c8b48518b0047672e835e0a6c8a66342b316ab8835cf4c331030de4830dcea2'
+            'e61245ff7e4c3af6f05a9fe9a3fcf47f2780d9aa88c11eab02a35fac446cf1e1'
             '56d85ff6bf860b9559b8c9f997ad9b1002f3fccc782073760eca505e3bddd176')
