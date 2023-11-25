@@ -1,9 +1,9 @@
-sudo pacman -S --needed --noconfirm kconfig
-sudo pacman -S --needed --noconfirm kcoreaddons
-sudo pacman -S --needed --noconfirm kiconthemes
-sudo pacman -S --needed --noconfirm ki18n
-sudo pacman -S --needed --noconfirm kio
-sudo pacman -S --needed --noconfirm solid
+sudo pacman -S --needed --noconfirm kconfig5
+sudo pacman -S --needed --noconfirm kcoreaddons5
+sudo pacman -S --needed --noconfirm kiconthemes5
+sudo pacman -S --needed --noconfirm ki18n5
+sudo pacman -S --needed --noconfirm kio5
+sudo pacman -S --needed --noconfirm solid5
 sudo pacman -S --needed --noconfirm yaml-cpp
 sudo pacman -S --needed --noconfirm kpmcore
 yay -S mkinitcpio-openswap --noconfirm
