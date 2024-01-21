@@ -3,7 +3,7 @@
 pkgname=calamares-app
 _pkgname=calamares
 pkgver=3.3.1
-pkgrel=4
+pkgrel=5
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
