@@ -13,7 +13,7 @@ sudo pacman -S --needed --noconfirm hwinfo
 sudo pacman -S --needed --noconfirm qt5-svg
 sudo pacman -S --needed --noconfirm polkit-qt5
 sudo pacman -S --needed --noconfirm gtk-update-icon-cache
-sudo pacman -S --needed --noconfirm plasma-framework
+sudo pacman -S --needed --noconfirm plasma-framework5
 sudo pacman -S --needed --noconfirm qt5-xmlpatterns
 sudo pacman -S --needed --noconfirm squashfs-tools
 

@@ -2,30 +2,48 @@
 
 pkgname=calamares-app
 _pkgname=calamares
-pkgver=3.3.1
-pkgrel=5
+pkgver=3.3.6
+pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares/calamares"
 license=('LGPL')
-depends=('kconfig5' 'kcoreaddons5' 'kiconthemes5' 'ki18n5' 'kio5' 'solid5' 'yaml-cpp' 'mkinitcpio-openswap'
-         'ckbcomp' 'hwinfo' 'qt5-svg' 'polkit-qt5' 'gtk-update-icon-cache' 'plasma-framework5'
-         'qt5-xmlpatterns' 'squashfs-tools' 'libpwquality' 'appstream-qt5' 'icu' 'python' 'qt5-webview')
-makedepends=('extra-cmake-modules' 'qt5-tools' 'qt5-translations' 'git' 'kparts5' 'kdbusaddons5' 'qt5-webengine')
+depends=('ckbcomp'
+	'efibootmgr'
+	'gtk-update-icon-cache'
+	'hwinfo'
+	'icu'
+	'kpmcore>=24.01.75'
+	'libpwquality'
+	'mkinitcpio-openswap'
+	'squashfs-tools'
+	'yaml-cpp'
+	'kconfig>=5.246'
+	'kcoreaddons>=5.246'
+	'ki18n>=5.246'
+	'kiconthemes>=5.246'
+	'kio>=5.246'
+	'polkit-qt6>=0.175.0'
+	'qt6-base>=6.6.0'
+	'qt6-svg>=6.6.0'
+	'solid>=5.246')
 
-source=($pkgname::git+$url#commit=1d8a197
-        "calamares_polkit"
-        "49-nopasswd-calamares.rules")
+makedepends=('extra-cmake-modules' 'qt6-tools' 'qt6-translations' 'git')
+
+source=($pkgname::git+$url#commit=2e96184)
+sha256sums=('SKIP')
 
 prepare() {
+	# modify desktop file
+	sed -i -e 's#Exec=sh.*#Exec=sh -c "/etc/calamares/launch.sh"#g' "$srcdir/$pkgname/calamares.desktop"
+	sed -i -e 's#Name=.*#Name=Install StormOS#g' "$srcdir/$pkgname/calamares.desktop"
+	sed -i -e 's#GenericName=.*#GenericName=StormOS Installer#g' "$srcdir/$pkgname/calamares.desktop"
+	sed -i -e 's#Icon=.*#Icon=menubutton#g' "$srcdir/$pkgname/calamares.desktop"
+	sed -i -e 's#Comment=.*#Comment=StormOS Installer#g' "$srcdir/$pkgname/calamares.desktop"
 
-#	cp -rv ../modules/* ${srcdir}/$pkgname/src/modules/
 
 	# patches here
-	sed -i -e 's/"Install configuration files" OFF/"Install configuration files" ON/' "$srcdir/${pkgname}/CMakeLists.txt"
-	sed -i -e 's/# DEBUG_FILESYSTEMS/DEBUG_FILESYSTEMS/' "$srcdir/${pkgname}/CMakeLists.txt"
-	sed -i -e "s/desired_size = 512 \* 1024 \* 1024  \# 512MiB/desired_size = 512 \* 1024 \* 1024 \* 4  \# 2048MiB/" "$srcdir/${pkgname}/src/modules/fstab/main.py"
 
 	# change version
 	cd ${srcdir}/$pkgname/src/
@@ -33,22 +51,29 @@ prepare() {
 	sed -i -e "s|\${CALAMARES_VERSION_MAJOR}.\${CALAMARES_VERSION_MINOR}.\${CALAMARES_VERSION_PATCH}|${_ver}-${pkgrel}|g" CMakeLists.txt
 	sed -i -e "s|CALAMARES_VERSION_RC 1|CALAMARES_VERSION_RC 0|g" CMakeLists.txt
 
+
  	# change branding
 	sed -i -e "s/default/Storm/g" ${srcdir}/$pkgname/src/branding/CMakeLists.txt
+
 }
 
 build() {
 	cd ${srcdir}/$pkgname
-
+	
 	mkdir -p build
 	cd build
         cmake .. \
               -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=/usr \
               -DCMAKE_INSTALL_LIBDIR=lib \
-              -DINSTALL_CONFIG=ON \
+              -DWITH_PYTHONQT:BOOL=ON \
+              -DBoost_NO_BOOST_CMAKE=ON \
+              -DWITH_QT6=ON \
               -DWITH_PYBIND11=ON \
-              -DSKIP_MODULES="initramfs initramfscfg  \
+              -DWITH_APPSTREAM=OFF \
+              -DBUILD_TESTING=OFF \
+              -DSKIP_MODULES="tracking webview interactiveterminal initramfs \
+                              initramfscfg dracut dracutlukscfg \
                               dummyprocess dummypython dummycpp \
                               dummypythonqt services-openrc"
 
@@ -63,6 +88,3 @@ package() {
 	rm "$pkgdir/usr/share/applications/calamares.desktop"
 
 }
-sha256sums=('SKIP'
-            'e61245ff7e4c3af6f05a9fe9a3fcf47f2780d9aa88c11eab02a35fac446cf1e1'
-            '56d85ff6bf860b9559b8c9f997ad9b1002f3fccc782073760eca505e3bddd176')
