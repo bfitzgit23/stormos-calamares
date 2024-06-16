@@ -2,36 +2,19 @@
 
 pkgname=calamares-app
 _pkgname=calamares
-pkgver=3.3.6.240615
+pkgver=3.3.7
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares/calamares"
 license=('LGPL')
-depends=('ckbcomp'
-	'efibootmgr'
-	'gtk-update-icon-cache'
-	'hwinfo'
-	'icu'
-	'kpmcore>=24.01.75'
-	'libpwquality'
-	'mkinitcpio-openswap'
-	'squashfs-tools'
-	'yaml-cpp'
-	'kconfig>=5.246'
-	'kcoreaddons>=5.246'
-	'ki18n>=5.246'
-	'kiconthemes>=5.246'
-	'kio>=5.246'
-	'polkit-qt6>=0.175.0'
-	'qt6-base>=6.6.0'
-	'qt6-svg>=6.6.0'
-	'solid>=5.246')
+depends=('qt6-svg' 'yaml-cpp' 'networkmanager' 'upower' 'kcoreaddons' 'kconfig' 'ki18n' 'kservice' 'kcrash'
+         'kwidgetsaddons' 'kpmcore' 'squashfs-tools' 'rsync' 'cryptsetup' 'dmidecode' 'qt6-declarative'
+         'gptfdisk' 'hwinfo' 'kparts' 'polkit-qt6' 'python' 'solid' 'boost-libs' 'libpwquality' 'ckbcomp' 'mkinitcpio-openswap' 'kpmcore')
+makedepends=('git' 'cmake' 'extra-cmake-modules' 'boost' 'python-jsonschema' 'python-pyaml' 'python-unidecode' 'ninja' 'qt6-tools'
 
-makedepends=('extra-cmake-modules' 'qt6-tools' 'qt6-translations' 'git')
-
-source=($pkgname::git+$url#commit=81c82ef)
+source=($pkgname::git+$url#commit=691e7f2)
 sha256sums=('SKIP')
 
 prepare() {
@@ -58,33 +41,42 @@ prepare() {
 }
 
 build() {
-	cd ${srcdir}/$pkgname
-	
-	mkdir -p build
-	cd build
-        cmake .. \
-              -DCMAKE_BUILD_TYPE=Release \
-              -DCMAKE_INSTALL_PREFIX=/usr \
-              -DCMAKE_INSTALL_LIBDIR=lib \
-              -DWITH_PYTHONQT:BOOL=ON \
-              -DBoost_NO_BOOST_CMAKE=ON \
-              -DWITH_QT6=ON \
-              -DWITH_PYBIND11=ON \
-              -DWITH_APPSTREAM=OFF \
-              -DBUILD_TESTING=OFF \
-              -DSKIP_MODULES="tracking webview interactiveterminal initramfs \
-                              initramfscfg dracut dracutlukscfg \
-                              dummyprocess dummypython dummycpp \
-                              dummypythonqt services-openrc"
+    cd ${srcdir}/calamares
 
-        make
+    _cpuCount=$(grep -c -w ^processor /proc/cpuinfo)
+
+    export CXXFLAGS+=" -fPIC"
+
+    cmake -S . -Bbuild \
+        -GNinja \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_INSTALL_LIBDIR=lib \
+        -DWITH_APPSTREAM=OFF \
+        -DWITH_PYBIND11=OFF \
+        -DWITH_QT6=ON \
+        -DSKIP_MODULES="dracut dracutlukscfg \
+        dummycpp dummyprocess dummypython dummypythonqt \
+        finishedq keyboardq license localeq notesqml oemid \
+        openrcdmcryptcfg packagechooserq fsresizer \
+        rawfs mkinitfs contextualprocess interactiveterminal \
+        plasmalnf services-openrc \
+        summaryq tracking usersq webview welcomeq"
+
+    cmake --build build --parallel $_cpuCount
 }
 
 package() {
-    install -Dm755 "../calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
-	cd ${srcdir}/$pkgname/build
-	make DESTDIR="$pkgdir" install
-	rm "${srcdir}/$pkgname/calamares.desktop"
-	rm "$pkgdir/usr/share/applications/calamares.desktop"
+    cd ${srcdir}/calamares/build
+    DESTDIR="${pkgdir}" cmake --build . --target install
 
+    cp ${srcdir}/calamares/settings_offline.conf "$pkgdir/usr/share/calamares/settings_offline.conf"
+    cp ${srcdir}/calamares/settings_online.conf "$pkgdir/usr/share/calamares/settings_online.conf"
+    cp ${srcdir}/calamares/settings_online.conf "$pkgdir/usr/share/calamares/settings.conf"
+    local _destdir=etc/calamares
+    install -dm755 $pkgdir/$_destdir
+    install -dm755 $pkgdir/$_destdir/modules
+    cp -rf ${srcdir}/calamares/src/modules/*/*.conf "$pkgdir/etc/calamares/modules"
+    # Delete Desktop Entry to avoid confusion for users
+    rm -rf "$pkgdir/usr/share/applications"
 }
