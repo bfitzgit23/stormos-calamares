@@ -2,7 +2,7 @@
 
 pkgname=calamares-app
 _pkgname=calamares
-pkgver=3.3.6
+pkgver=3.3.6.240612
 pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -31,7 +31,7 @@ depends=('ckbcomp'
 
 makedepends=('extra-cmake-modules' 'qt6-tools' 'qt6-translations' 'git')
 
-source=($pkgname::git+$url#commit=2e96184)
+source=($pkgname::git+$url#commit=81c82ef)
 sha256sums=('SKIP')
 
 prepare() {
