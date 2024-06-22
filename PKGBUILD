@@ -29,7 +29,7 @@ prepare() {
 	# patches here
 
 	# change version
-	cd ${srcdir}/$pkgname/src/
+	cd ${srcdir}/$pkgname/src
 	_ver="$(cat CMakeLists.txt | grep -m3 -e "  VERSION" | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
 	sed -i -e "s|\${CALAMARES_VERSION_MAJOR}.\${CALAMARES_VERSION_MINOR}.\${CALAMARES_VERSION_PATCH}|${_ver}-${pkgrel}|g" CMakeLists.txt
 	sed -i -e "s|CALAMARES_VERSION_RC 1|CALAMARES_VERSION_RC 0|g" CMakeLists.txt
@@ -41,7 +41,7 @@ prepare() {
 }
 
 build() {
-    cd ${srcdir}/calamares
+    cd ${srcdir}/$pkgname/src
 
     _cpuCount=$(grep -c -w ^processor /proc/cpuinfo)
 
@@ -67,16 +67,9 @@ build() {
 }
 
 package() {
-    cd ${srcdir}/calamares/build
+    cd ${srcdir}/$pkgname/build
     DESTDIR="${pkgdir}" cmake --build . --target install
 
-    cp ${srcdir}/calamares/settings_offline.conf "$pkgdir/usr/share/calamares/settings_offline.conf"
-    cp ${srcdir}/calamares/settings_online.conf "$pkgdir/usr/share/calamares/settings_online.conf"
-    cp ${srcdir}/calamares/settings_online.conf "$pkgdir/usr/share/calamares/settings.conf"
-    local _destdir=etc/calamares
-    install -dm755 $pkgdir/$_destdir
-    install -dm755 $pkgdir/$_destdir/modules
-    cp -rf ${srcdir}/calamares/src/modules/*/*.conf "$pkgdir/etc/calamares/modules"
     # Delete Desktop Entry to avoid confusion for users
     rm -rf "$pkgdir/usr/share/applications"
 }
