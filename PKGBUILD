@@ -41,7 +41,7 @@ prepare() {
 }
 
 build() {
-    cd ${srcdir}/$pkgname/src
+    cd ${srcdir}/$pkgname
 
     _cpuCount=$(grep -c -w ^processor /proc/cpuinfo)
 
