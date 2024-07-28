@@ -2,7 +2,7 @@
 
 pkgname=calamares-app
 _pkgname=calamares
-pkgver=3.3.7
+pkgver=3.3.8
 pkgrel=2
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
@@ -14,7 +14,7 @@ depends=('qt6-svg' 'yaml-cpp' 'networkmanager' 'upower' 'kcoreaddons' 'kconfig' 
          'gptfdisk' 'hwinfo' 'kparts' 'polkit-qt6' 'python' 'solid' 'boost-libs' 'libpwquality' 'ckbcomp' 'mkinitcpio-openswap' 'kpmcore')
 makedepends=('git' 'cmake' 'extra-cmake-modules' 'boost' 'python-jsonschema' 'python-pyaml' 'python-unidecode' 'ninja' 'qt6-tools')
 
-source=($pkgname::git+$url#commit=ea744a0)
+source=($pkgname::git+$url#commit=8f9c26e)
 sha256sums=('SKIP')
 
 prepare() {
