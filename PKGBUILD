@@ -14,7 +14,7 @@ depends=('qt6-svg' 'yaml-cpp' 'networkmanager' 'upower' 'kcoreaddons' 'kconfig' 
          'gptfdisk' 'hwinfo' 'kparts' 'polkit-qt6' 'python' 'solid' 'boost-libs' 'libpwquality' 'ckbcomp' 'mkinitcpio-openswap' 'kpmcore')
 makedepends=('git' 'cmake' 'extra-cmake-modules' 'boost' 'python-jsonschema' 'python-pyaml' 'python-unidecode' 'ninja' 'qt6-tools')
 
-source=($pkgname::git+$url#commit=d398d65)
+source=($pkgname::git+$url#commit=b485bfe)
 sha256sums=('SKIP')
 
 prepare() {
