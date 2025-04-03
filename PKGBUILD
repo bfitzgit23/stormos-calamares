@@ -20,10 +20,10 @@ sha256sums=('SKIP')
 prepare() {
 	# modify desktop file
 	sed -i -e 's#Exec=sh.*#Exec=sh -c "/etc/calamares/launch.sh"#g' "$srcdir/$pkgname/calamares.desktop"
-	sed -i -e 's#Name=.*#Name=Install AcreetionOS-XFCE#g' "$srcdir/$pkgname/calamares.desktop"
-	sed -i -e 's#GenericName=.*#GenericName=AcreetionOS-XFCE#g' "$srcdir/$pkgname/calamares.desktop"
+	sed -i -e 's#Name=.*#Name=Install stormos-calamares#g' "$srcdir/$pkgname/calamares.desktop"
+	sed -i -e 's#GenericName=.*#GenericName=stormos-calamaresE#g' "$srcdir/$pkgname/calamares.desktop"
 	sed -i -e 's#Icon=.*#Icon=menubutton#g' "$srcdir/$pkgname/calamares.desktop"
-	sed -i -e 's#Comment=.*#Comment=AcreetionOS-XFCE#g' "$srcdir/$pkgname/calamares.desktop"
+	sed -i -e 's#Comment=.*#Comment=stormos-calamares#g' "$srcdir/$pkgname/calamares.desktop"
 
 
 	# patches here
