@@ -9,10 +9,46 @@ arch=('i686' 'x86_64')
 license=(GPL)
 url="https://github.com/calamares/calamares"
 license=('LGPL')
-depends=('qt6-svg' 'yaml-cpp' 'networkmanager' 'upower' 'kcoreaddons' 'kconfig' 'ki18n' 'kservice' 'kcrash'
-         'kwidgetsaddons' 'kpmcore' 'squashfs-tools' 'rsync' 'cryptsetup' 'dmidecode' 'qt6-declarative'
-         'gptfdisk' 'hwinfo' 'kparts' 'polkit-qt6' 'python' 'solid' 'boost-libs' 'libpwquality' 'ckbcomp' 'mkinitcpio-openswap' 'kpmcore')
-makedepends=('git' 'cmake' 'extra-cmake-modules' 'boost' 'python-jsonschema' 'python-pyaml' 'python-unidecode' 'ninja' 'qt6-tools')
+depends=(
+  boost-libs
+  ckbcomp
+  cryptsetup
+  dmidecode
+  gptfdisk
+  hwinfo
+  kconfig
+  kcoreaddons
+  kcrash
+  ki18n
+  kparts
+  kpmcore
+  kservice
+  kwidgetsaddons
+  libpwquality
+  mkinitcpio-openswap
+  networkmanager
+  polkit-qt6
+  python
+  qt6-declarative
+  qt6-svg
+  rsync
+  solid
+  squashfs-tools
+  upower
+  yaml-cpp
+)
+makedepends=(
+  boost
+  cmake
+  doxygen
+  extra-cmake-modules
+  git
+  ninja
+  python-jsonschema
+  python-pyaml
+  python-unidecode
+  qt6-tools
+)
 
 source=($pkgname::git+$url#commit=95aa33f)
 sha256sums=('SKIP')
