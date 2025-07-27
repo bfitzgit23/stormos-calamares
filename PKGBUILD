@@ -76,7 +76,7 @@ prepare() {
 }
 
 build() {
-	cd $pkgname
+	cd ${srcdir}/$pkgname/src
 
     cmake -S . -Bbuild \
         -GNinja \
@@ -112,7 +112,7 @@ build() {
 }
 
 package() {
-	cd $pkgname/build
+	cd ${srcdir}/$pkgname/build
 	DESTDIR="${pkgdir}" cmake --build . --target install
 	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/etc/xdg/autostart/calamares.desktop"
 	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/home/liveuser/Desktop/cala-launch.desktop"
