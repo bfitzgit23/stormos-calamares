@@ -85,7 +85,11 @@ prepare() {
 }
 
 build() {
-	cd ${srcdir}/$pkgname/src
+	cd ${srcdir}/$pkgname
+
+	  _cpuCount=$(grep -c -w ^processor /proc/cpuinfo)
+
+    export CXXFLAGS+=" -fPIC"
 
     cmake -S . -Bbuild \
         -GNinja \
@@ -117,7 +121,7 @@ build() {
             zfs \
             zfshostid"
 
-    cmake --build build
+    cmake --build build --parallel $_cpuCount
 }
 
 package() {
