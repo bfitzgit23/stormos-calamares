@@ -50,7 +50,7 @@ makedepends=(
   qt6-tools
 )
 
-source=($pkgname::git+$url#commit=0949c7eb32)
+source=($pkgname::$url#commit=0949c7eb32)
 sha256sums=('SKIP')
 
 prepare() {
