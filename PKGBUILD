@@ -57,7 +57,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
 source=($pkgname::git+$url#commit=8b0feb1852
-	"xero-cal.desktop"
+	"calamares.desktop"
 	"calamares_polkit")
 
 sha256sums=('SKIP'
@@ -114,8 +114,8 @@ build() {
 package() {
 	cd $pkgname/build
 	DESTDIR="${pkgdir}" cmake --build . --target install
-	install -Dm644 "$srcdir/xero-cal.desktop" "$pkgdir/etc/xdg/autostart/calamares.desktop"
-	install -Dm644 "$srcdir/xero-cal.desktop" "$pkgdir/home/liveuser/Desktop/cala-launch.desktop"
+	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/etc/xdg/autostart/calamares.desktop"
+	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/home/liveuser/Desktop/cala-launch.desktop"
 	install -Dm755 "$srcdir/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
 	rm "$pkgdir/usr/share/applications/calamares.desktop"
 }
