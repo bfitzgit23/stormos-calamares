@@ -50,38 +50,27 @@ makedepends=(
   qt6-tools
 )
 
-source=($pkgname::$url#commit=0949c7eb32)
-sha256sums=('SKIP')
+source=($pkgname::git+$url#commit=8b0feb1852
+	"calamares.desktop"
+	"calamares_polkit")
+
+sha256sums=('SKIP'
+            'SKIP'
+            'SKIP')
 
 prepare() {
-	# modify desktop file
-	sed -i -e 's#Exec=sh.*#Exec=sh -c "/etc/calamares/launch.sh"#g' "$srcdir/$pkgname/calamares.desktop"
-	sed -i -e 's#Name=.*#Name=Install stormos-calamares#g' "$srcdir/$pkgname/calamares.desktop"
-	sed -i -e 's#GenericName=.*#GenericName=stormos-calamaresE#g' "$srcdir/$pkgname/calamares.desktop"
-	sed -i -e 's#Icon=.*#Icon=menubutton#g' "$srcdir/$pkgname/calamares.desktop"
-	sed -i -e 's#Comment=.*#Comment=stormos-calamares#g' "$srcdir/$pkgname/calamares.desktop"
 
+	cp -rv ../modules/* ${srcdir}/$pkgname/src/modules/
 
-	# patches here
+	sed -i -e 's/"Install configuration files" OFF/"Install configuration files" ON/' "$srcdir/$pkgname/CMakeLists.txt"
+	sed -i -e "s/desired_size = 512 \* 1024 \* 1024  \# 512MiB/desired_size = 512 \* 1024 \* 1024 \* 4  \# 2048MiB/" "$srcdir/$pkgname/src/modules/fstab/main.py"
 
-	# change version
-	cd ${srcdir}/$pkgname/src
-	_ver="$(cat CMakeLists.txt | grep -m3 -e "  VERSION" | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
-	sed -i -e "s|\${CALAMARES_VERSION_MAJOR}.\${CALAMARES_VERSION_MINOR}.\${CALAMARES_VERSION_PATCH}|${_ver}-${pkgrel}|g" CMakeLists.txt
-	sed -i -e "s|CALAMARES_VERSION_RC 1|CALAMARES_VERSION_RC 0|g" CMakeLists.txt
-
-
- 	# change branding
-	sed -i -e "s/default/Storm/g" ${srcdir}/$pkgname/src/branding/CMakeLists.txt
-
+	cd $pkgname
+	sed -i -e "s|CALAMARES_VERSION 3.3.6|CALAMARES_VERSION $pkgver-$pkgrel|g" CMakeLists.txt
 }
 
 build() {
-    cd ${srcdir}/$pkgname
-
-    _cpuCount=$(grep -c -w ^processor /proc/cpuinfo)
-
-    export CXXFLAGS+=" -fPIC"
+	cd $pkgname
 
     cmake -S . -Bbuild \
         -GNinja \
@@ -91,21 +80,36 @@ build() {
         -DWITH_APPSTREAM=OFF \
         -DWITH_PYBIND11=OFF \
         -DWITH_QT6=ON \
-        -DSKIP_MODULES="dracut dracutlukscfg \
-        dummycpp dummyprocess dummypython dummypythonqt \
-        finishedq keyboardq license localeq notesqml oemid \
-        openrcdmcryptcfg packagechooserq fsresizer \
-        rawfs mkinitfs contextualprocess interactiveterminal \
-        plasmalnf services-openrc \
-        summaryq tracking usersq webview welcomeq"
+        -DSKIP_MODULES="dracut \
+            dracutlukscfg \
+            dummycpp \
+            dummyprocess \
+            dummypython \
+            dummypythonqt \
+            initramfs \
+            initramfscfg \
+            interactiveterminal \
+            keyboardq \
+            license \
+            localeq \
+            oemid \
+            packagechooserq \
+            partitionq \
+            services-openrc \
+            summaryq \
+            tracking \
+            welcomeq \
+            zfs \
+            zfshostid"
 
-    cmake --build build --parallel $_cpuCount
+    cmake --build build
 }
 
 package() {
-    cd ${srcdir}/$pkgname/build
-    DESTDIR="${pkgdir}" cmake --build . --target install
-
-    # Delete Desktop Entry to avoid confusion for users
-    rm -rf "$pkgdir/usr/share/applications"
+	cd $pkgname/build
+	DESTDIR="${pkgdir}" cmake --build . --target install
+	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/etc/xdg/autostart/calamares.desktop"
+	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/home/liveuser/Desktop/cala-launch.desktop"
+	install -Dm755 "$srcdir/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
+	rm "$pkgdir/usr/share/applications/calamares.desktop"
 }
