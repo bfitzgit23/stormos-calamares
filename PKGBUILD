@@ -50,7 +50,7 @@ makedepends=(
   qt6-tools
 )
 
-source=($pkgname::git+$url#commit=8b0feb1852
+source=($pkgname::$url#commit=8b0feb1852
 	"calamares.desktop"
 	"calamares_polkit")
 
