@@ -7,7 +7,7 @@ pkgrel=1
 pkgdesc='Distribution-independent installer framework'
 arch=('i686' 'x86_64')
 license=(GPL)
-url="https://github.com/calamares/calamares"
+url="https://codeberg.com/Calamares/calamares"
 license=('LGPL')
 depends=(
   boost-libs
@@ -50,7 +50,7 @@ makedepends=(
   qt6-tools
 )
 
-source=($pkgname::git+$url#commit=95aa33f)
+source=($pkgname::git+$url#commit=0949c7eb32)
 sha256sums=('SKIP')
 
 prepare() {
