@@ -66,13 +66,19 @@ sha256sums=('SKIP'
 
 prepare() {
 
-	cp -rv ../modules/* ${srcdir}/$pkgname/src/modules/
+	# modify desktop file
+	sed -i -e 's#Exec=sh.*#Exec=sh -c "/etc/calamares/launch.sh"#g' "$srcdir/$pkgname/calamares.desktop"
+	sed -i -e 's#Name=.*#Name=Install StormOS#g' "$srcdir/$pkgname/calamares.desktop"
+	sed -i -e 's#GenericName=.*#GenericName=StormOS Installer#g' "$srcdir/$pkgname/calamares.desktop"
+	sed -i -e 's#Icon=.*#Icon=menubutton#g' "$srcdir/$pkgname/calamares.desktop"
+	sed -i -e 's#Comment=.*#Comment=StormOS Installer#g' "$srcdir/$pkgname/calamares.desktop"
 
-	sed -i -e 's/"Install configuration files" OFF/"Install configuration files" ON/' "$srcdir/$pkgname/src/CMakeLists.txt"
-	sed -i -e "s/desired_size = 512 \* 1024 \* 1024  \# 512MiB/desired_size = 512 \* 1024 \* 1024 \* 4  \# 2048MiB/" "$srcdir/$pkgname/src/modules/fstab/main.py"
-
+ 
+	# change version
 	cd ${srcdir}/$pkgname/src
-	sed -i -e "s|CALAMARES_VERSION 3.3.6|CALAMARES_VERSION $pkgver-$pkgrel|g" CMakeLists.txt
+	_ver="$(cat CMakeLists.txt | grep -m3 -e "  VERSION" | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
+	sed -i -e "s|\${CALAMARES_VERSION_MAJOR}.\${CALAMARES_VERSION_MINOR}.\${CALAMARES_VERSION_PATCH}|${_ver}-${pkgrel}|g" CMakeLists.txt
+	sed -i -e "s|CALAMARES_VERSION_RC 1|CALAMARES_VERSION_RC 0|g" CMakeLists.txt
 
  	# change branding
 	sed -i -e "s/default/Storm/g" ${srcdir}/$pkgname/src/branding/CMakeLists.txt
