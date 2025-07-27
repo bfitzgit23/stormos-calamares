@@ -1,14 +1,16 @@
-# Maintainer: StormOS-Dev
+#https://github.com/calamares/calamares/releases
+#change prepare number too
 
 pkgname=calamares-app
 _pkgname=calamares
 pkgver=3.4.0
-pkgrel=1
+pkgrel=2
 pkgdesc='Distribution-independent installer framework'
-arch=('i686' 'x86_64')
+arch=('x86_64')
 license=(GPL)
-url="https://codeberg.com/Calamares/calamares"
+url="https://codeberg.org/Calamares/calamares.git"
 license=('LGPL')
+provides=('calamares')
 depends=(
   boost-libs
   ckbcomp
@@ -49,9 +51,13 @@ makedepends=(
   python-unidecode
   qt6-tools
 )
+backup=('usr/share/calamares/modules/bootloader.conf'
+        'usr/share/calamares/modules/displaymanager.conf'
+        'usr/share/calamares/modules/initcpio.conf'
+        'usr/share/calamares/modules/unpackfs.conf')
 
-source=($pkgname::$url#commit=0949c7eb32
-	"calamares.desktop"
+source=($pkgname::git+$url#commit=8b0feb1852
+	"xero-cal.desktop"
 	"calamares_polkit")
 
 sha256sums=('SKIP'
@@ -108,8 +114,8 @@ build() {
 package() {
 	cd $pkgname/build
 	DESTDIR="${pkgdir}" cmake --build . --target install
-	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/etc/xdg/autostart/calamares.desktop"
-	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/home/liveuser/Desktop/cala-launch.desktop"
+	install -Dm644 "$srcdir/xero-cal.desktop" "$pkgdir/etc/xdg/autostart/calamares.desktop"
+	install -Dm644 "$srcdir/xero-cal.desktop" "$pkgdir/home/liveuser/Desktop/cala-launch.desktop"
 	install -Dm755 "$srcdir/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
 	rm "$pkgdir/usr/share/applications/calamares.desktop"
 }
