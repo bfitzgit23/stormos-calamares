@@ -4,7 +4,7 @@
 pkgname=calamares-app
 _pkgname=calamares
 pkgver=3.4.0
-pkgrel=2
+pkgrel=4
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 license=(GPL)
@@ -56,40 +56,29 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source=($pkgname::git+$url#commit=fd3d730526
+source=($pkgname::git+$url#commit=0949c7eb32
 	"calamares.desktop"
+	"cala-launch.desktop"
 	"calamares_polkit")
 
 sha256sums=('SKIP'
+            'SKIP'
             'SKIP'
             'SKIP')
 
 prepare() {
 
-	# modify desktop file
-	sed -i -e 's#Exec=sh.*#Exec=sh -c "/etc/calamares/launch.sh"#g' "$srcdir/$pkgname/calamares.desktop"
-	sed -i -e 's#Name=.*#Name=Install StormOS#g' "$srcdir/$pkgname/calamares.desktop"
-	sed -i -e 's#GenericName=.*#GenericName=StormOS Installer#g' "$srcdir/$pkgname/calamares.desktop"
-	sed -i -e 's#Icon=.*#Icon=menubutton#g' "$srcdir/$pkgname/calamares.desktop"
-	sed -i -e 's#Comment=.*#Comment=StormOS Installer#g' "$srcdir/$pkgname/calamares.desktop"
+	cp -rv ../modules/* ${srcdir}/$pkgname/src/modules/
 
- 
-	# change version
-	cd ${srcdir}/$pkgname/src
-	_ver="$(cat CMakeLists.txt | grep -m3 -e "  VERSION" | grep -o "[[:digit:]]*" | xargs | sed s'/ /./g')"
-	sed -i -e "s|\${CALAMARES_VERSION_MAJOR}.\${CALAMARES_VERSION_MINOR}.\${CALAMARES_VERSION_PATCH}|${_ver}-${pkgrel}|g" CMakeLists.txt
-	sed -i -e "s|CALAMARES_VERSION_RC 1|CALAMARES_VERSION_RC 0|g" CMakeLists.txt
+	sed -i -e 's/"Install configuration files" OFF/"Install configuration files" ON/' "$srcdir/$pkgname/CMakeLists.txt"
+	sed -i -e "s/desired_size = 512 \* 1024 \* 1024  \# 512MiB/desired_size = 512 \* 1024 \* 1024 \* 4  \# 2048MiB/" "$srcdir/$pkgname/src/modules/fstab/main.py"
 
- 	# change branding
-	sed -i -e "s/default/Storm/g" ${srcdir}/$pkgname/src/branding/CMakeLists.txt
+	cd $pkgname
+	sed -i -e "s|CALAMARES_VERSION 3.3.6|CALAMARES_VERSION $pkgver-$pkgrel|g" CMakeLists.txt
 }
 
 build() {
-	cd ${srcdir}/$pkgname
-
-	  _cpuCount=$(grep -c -w ^processor /proc/cpuinfo)
-
-    export CXXFLAGS+=" -fPIC"
+	cd $pkgname
 
     cmake -S . -Bbuild \
         -GNinja \
@@ -121,14 +110,14 @@ build() {
             zfs \
             zfshostid"
 
-    cmake --build build --parallel $_cpuCount
+    cmake --build build
 }
 
 package() {
-	cd ${srcdir}/$pkgname/build
+	cd $pkgname/build
 	DESTDIR="${pkgdir}" cmake --build . --target install
 	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/etc/xdg/autostart/calamares.desktop"
-	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/home/liveuser/Desktop/cala-launch.desktop"
+	install -Dm644 "$srcdir/calamares.desktop" "$pkgdir/home/liveuser/Desktop/calamares.desktop"
 	install -Dm755 "$srcdir/calamares_polkit" "$pkgdir/usr/bin/calamares_polkit"
 	rm "$pkgdir/usr/share/applications/calamares.desktop"
 }
