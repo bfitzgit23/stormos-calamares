@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=Astormos-calamares
+Name=stormos-calamares
 GenericName=Live Installer (Calamares)
 Comment=Install the operating system to disk
 Exec=sudo calamares
