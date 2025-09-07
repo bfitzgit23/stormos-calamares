@@ -58,7 +58,6 @@ backup=('usr/share/calamares/modules/bootloader.conf'
 
 source=($pkgname::git+$url#commit=0949c7eb32
 	"calamares.desktop"
-	"cala-launch.desktop"
 	"calamares_polkit")
 
 sha256sums=('SKIP'
