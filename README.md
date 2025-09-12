@@ -1,5 +1,5 @@
 # stormos-calamares
-stormos-calamares
+stormos-calamares, with help from the great team at AcreetionOS
 
 to USE this software: 
 
