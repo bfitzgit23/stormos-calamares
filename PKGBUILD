@@ -69,7 +69,10 @@ prepare() {
 
 	cp -rv ../modules/* ${srcdir}/$pkgname/src/modules/
 
+	sed -i 's/command\.append("-S")/command.append("-Syy")/' "$srcdir/$pkgname/src/modules/packages/main.py"
 	sed -i -e 's/"Install configuration files" OFF/"Install configuration files" ON/' "$srcdir/$pkgname/CMakeLists.txt"
+# 	sed -i '/case FileSystem::Xfs:/ a case FileSystem::Bcachefs:' "$srcdir/$pkgname/src/libcalamares/partition/FileSystem.cpp"
+#   sed -i '/case FileSystem::Fat16:/ i case FileSystem::Bcachefs:' "$srcdir/$pkgname/src/modules/partition/core/PartitionLayout.cpp"
 	sed -i -e "s/desired_size = 512 \* 1024 \* 1024  \# 512MiB/desired_size = 512 \* 1024 \* 1024 \* 4  \# 2048MiB/" "$srcdir/$pkgname/src/modules/fstab/main.py"
 
 	cd $pkgname
