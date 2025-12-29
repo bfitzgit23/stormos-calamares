@@ -56,7 +56,7 @@ backup=('usr/share/calamares/modules/bootloader.conf'
         'usr/share/calamares/modules/initcpio.conf'
         'usr/share/calamares/modules/unpackfs.conf')
 
-source=($pkgname::git+$url#commit=c5c9b797d5
+source=($pkgname::git+$url#commit=3f6cd831f5
 	"calamares.desktop"
 	"calamares_polkit")
 
