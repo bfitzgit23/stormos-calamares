@@ -4,7 +4,7 @@
 pkgname=calamares-app
 _pkgname=calamares
 pkgver=3.4.0
-pkgrel=4
+pkgrel=5
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
 license=(GPL)
@@ -51,19 +51,19 @@ makedepends=(
   python-unidecode
   qt6-tools
 )
-backup=('usr/share/calamares/modules/bootloader.conf'
-        'usr/share/calamares/modules/displaymanager.conf'
-        'usr/share/calamares/modules/initcpio.conf'
-        'usr/share/calamares/modules/unpackfs.conf')
 
-source=($pkgname::git+$url#commit=3f6cd831f5
+#backup=('usr/share/calamares/modules/bootloader.conf'
+#        'usr/share/calamares/modules/displaymanager.conf'
+#        'usr/share/calamares/modules/initcpio.conf'
+#        'usr/share/calamares/modules/unpackfs.conf')
+
+source=($pkgname::git+$url#commit=0cd2e52bea
 	"calamares.desktop"
 	"calamares_polkit")
 
-sha256sums=('SKIP'
-            'SKIP'
-            'SKIP'
-            'SKIP')
+sha256sums=('781462670ee2c37b5ef025784c86fa69349f13a3f6ca5a8a3d4782d45f82968f'
+            'a9d6f76862ecb1d3079797b86053a3ee9eb051a436bf26783018e4395137bd64'
+            '4c8b48518b0047672e835e0a6c8a66342b316ab8835cf4c331030de4830dcea2')
 
 prepare() {
 
