@@ -3,7 +3,7 @@
 
 pkgname=calamares-app
 _pkgname=calamares
-pkgver=3.4.0
+pkgver=3.4.2
 pkgrel=5
 pkgdesc='Distribution-independent installer framework'
 arch=('x86_64')
@@ -57,7 +57,7 @@ makedepends=(
 #        'usr/share/calamares/modules/initcpio.conf'
 #        'usr/share/calamares/modules/unpackfs.conf')
 
-source=($pkgname::git+$url#commit=0cd2e52bea
+source=($pkgname::git+$url#commit=7359afcf72
 	"calamares.desktop"
 	"calamares_polkit")
 
