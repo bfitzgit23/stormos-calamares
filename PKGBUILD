@@ -57,7 +57,7 @@ makedepends=(
 #        'usr/share/calamares/modules/initcpio.conf'
 #        'usr/share/calamares/modules/unpackfs.conf')
 
-source=($pkgname::git+$url#commit=7359afcf72
+source=($pkgname::git+$url#commit=841b478570
 	"calamares.desktop"
 	"calamares_polkit")
 
